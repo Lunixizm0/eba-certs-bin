@@ -2,9 +2,9 @@
 pkgname=eba-certs-bin
 pkgver=1.0.2
 pkgrel=1
-pkgdesc='MEB Fatih root CA certificates for EBA access (repackaged from Pardus .deb)'
+pkgdesc='MEB Fatih root CA certificates for Fatih Network access (repackaged from Pardus .deb)'
 arch=('any')
-url='https://github.com/pardus/eba-certs'
+url='https://github.com/Lunixizm0/eba-certs-bin'
 license=('GPL-3.0-or-later')
 depends=('ca-certificates')
 optdepends=(

@@ -1,0 +1,23 @@
+pkgbase = eba-certs-bin
+	pkgdesc = MEB Fatih root CA certificates for Fatih Network access (repackaged from Pardus .deb)
+	pkgver = 1.0.2
+	pkgrel = 1
+	url = https://github.com/pardus/eba-certs
+	arch = any
+	license = GPL-3.0-or-later
+	depends = ca-certificates
+	optdepends = firefox: to apply the bundled policies.json
+	optdepends = firefox-esr: to apply the bundled policies.json
+	optdepends = chromium: uses the system trust store
+	optdepends = google-chrome: uses the system trust store
+	provides = eba-certs
+	conflicts = eba-certs
+	noextract = eba-certs_1.0.2_amd64.deb
+	options = !strip
+	options = !debug
+	backup = etc/firefox/policies/policies.json
+	backup = etc/skel/.pki/nssdb/cert9.db
+	source = https://depo.pardus.org.tr/pardus/pool/contrib/e/eba-certs/eba-certs_1.0.2_amd64.deb
+	sha256sums = 83929e36c68fb5950423e1a76ad498be67785e4f30137fc4462959597736d6f7
+
+pkgname = eba-certs-bin
