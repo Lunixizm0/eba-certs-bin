@@ -50,8 +50,9 @@ https://depo.pardus.org.tr/pardus/pool/contrib/e/eba-certs/eba-certs_1.0.2_amd64
 ## Note on `cert9.db`: new users vs existing users
 
 `/etc/skel/.pki/nssdb/cert9.db` is only copied for users created *after*
-the package is installed. Existing users get Firefox coverage automatically
-via `policies.json` (`Install` + `ImportEnterpriseRoots`), and
+the package is installed. Existing Firefox users are covered through the Certificates.
+Install enterprise policy, which imports the bundled CA certificates into Firefox. 
+ImportEnterpriseRoots is not relied upon on Linux. And
 Chromium/Chrome coverage via the system trust store - no manual import
 needed. The db ships intentionally without `key4.db`/`pkcs11.txt`;
 Firefox/NSS recreates the missing sidecar files on first run.

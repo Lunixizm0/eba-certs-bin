@@ -6,6 +6,7 @@ pkgdesc='MEB Fatih root CA certificates for Fatih Network access (repackaged fro
 arch=('any')
 url='https://github.com/Lunixizm0/eba-certs-bin'
 license=('GPL-3.0-or-later')
+makedepends=('libarchive')
 depends=('ca-certificates')
 optdepends=(
   'firefox: to apply the bundled policies.json'
