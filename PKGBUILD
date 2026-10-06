@@ -26,11 +26,11 @@ noextract=("eba-certs_${pkgver}_amd64.deb")
 options=('!strip' '!debug')
 
 prepare() {
-  bsdtar -xf "eba-certs_${pkgver}_amd64.deb" data.tar.xz
+  bsdtar -xf "${srcdir}/eba-certs_${pkgver}_amd64.deb" -C "${srcdir}" data.tar.xz
 }
 
 package() {
-  bsdtar -xf data.tar.xz -C "${pkgdir}"
+  bsdtar -xf "${srcdir}/data.tar.xz" -C "${pkgdir}"
 
 # Arch reads trust anchors from trust-source/ not from debians
 # /usr/local/share/ca-certificates keep the originals (policies.json
@@ -42,13 +42,24 @@ package() {
   install -Dm644 "${pkgdir}/usr/local/share/ca-certificates/MEB2.crt" \
     "${pkgdir}/usr/share/ca-certificates/trust-source/anchors/MEB2.crt"
 
-  #firefox-esr lives under /usr/lib on arch not /usr/share as on debian
-  install -Dm644 "${pkgdir}/usr/share/firefox-esr/distribution/policies.json" \
-    "${pkgdir}/usr/lib/firefox-esr/distribution/policies.json"
-
+  # Canonical policy file lives in /etc (backupd) the /usr/lib copies are
+  # symlinks to it
   install -Dm644 "${pkgdir}/usr/lib/firefox/distribution/policies.json" \
     "${pkgdir}/etc/firefox/policies/policies.json"
 
-  #drop Debian-specific packaging docs
+  # firefox-esr lives under /usr/lib on arch not /usr/share as on debian drop the Debian path entirely
+  rm -rf "${pkgdir}/usr/share/firefox-esr"
+  rm -f "${pkgdir}/usr/lib/firefox/distribution/policies.json"
+  install -dm755 "${pkgdir}/usr/lib/firefox/distribution" \
+    "${pkgdir}/usr/lib/firefox-esr/distribution"
+  ln -s /etc/firefox/policies/policies.json \
+    "${pkgdir}/usr/lib/firefox/distribution/policies.json"
+  ln -s /etc/firefox/policies/policies.json \
+    "${pkgdir}/usr/lib/firefox-esr/distribution/policies.json"
+
+  install -Dm644 "${startdir}/LICENSE" \
+    "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+
+  #drop debian-specific packaging docs
   rm -rf "${pkgdir}/usr/share/doc"
 }
